@@ -1,0 +1,7 @@
+{
+  "host": "kmon.xyz",
+  "user": "kmon",
+  "password": "Mysqld1!",
+  "port": "3306",
+  "database": "penta"
+}
