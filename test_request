@@ -1,0 +1,8 @@
+http://localhost:3000/api/auth
+
+Host: localhost:3000
+Content-Type: application/json
+Cache-Control: no-cache
+Content-Length: 19
+
+{"name":"gogogogo"}
