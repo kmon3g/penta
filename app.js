@@ -32,6 +32,9 @@ app.use(function (req, res, next) {
 // API
 app.use('/api/users', require('./api/users')); //2
 app.use('/api/auth', require('./api/auth'));   //2
+app.use('/api/board', require('./api/board'));   //2
+app.use('/api/add', require('./api/add'));   //2
+app.use('/api/delete', require('./api/delete'));   //2
 
 var router = express.Router();
 
@@ -40,6 +43,5 @@ var router = express.Router();
 // app.listen(port, function(){
   // console.log('listening on port:' + port);
 // });
-
 
 module.exports = app;
