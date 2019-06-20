@@ -29,13 +29,12 @@ router.post('/', function(req,res,next){ //all --> post
   // console.log('name is :'+data.vuln_date);
   connection.escape();
   //date ex) 20190615202000 , 2019-06-15 20:20:00
-  var query=connection.query('insert into vuln values(?,?,?,?,?,?,?,?)',[data.vuln_id, data.vuln_type, data.project_id, data.vuln_url, data.vuln_comment, data.vuln_poc, data.vuln_infomer, data.vuln_date],function(err, results){
+  var query=connection.query('insert into vuln values( (select max(vuln_id)+1 from vuln vul) ),?,?,?,?,?,?,?)',[data.vuln_type, data.project_id, data.vuln_url, data.vuln_comment, data.vuln_poc, data.vuln_infomer, data.vuln_date],function(err, results){
     if (err) {
      console.log(err);
      console.log('query error');
      return res.json({message:"query error"});
    }
-   
    return res.json({message:"query insert"});
 });//insert query
 //특이 사항 변수 쿼리가 아닐 경우 에러 발생

@@ -1,4 +1,4 @@
-// api/board.js
+// api/update.js
 
 var express  = require('express');
 var router   = express.Router();
@@ -18,24 +18,19 @@ var connection = mysql.createConnection({
 });
 
 router.post('/', function(req,res,next){ //all --> post
-  connection.escape();
   data = req.body;
-  //name 값을 받으면 해당 네임에 맞는 vuln 리스트 응답
-  var query=connection.query('select * from vuln vul, project proj where vul.project_id=proj.project_id and proj.project_name=?',data.name, function(err, results){
+  connection.escape();
+  //date ex) 20190615202000 , 2019-06-15 20:20:00
+  var query=connection.query('update vuln set ',data.vuln_id,function(err, results){
     if (err) {
      console.log(err);
+     console.log('query error');
+     return res.json({message:"query error"});
    }
-   // console.log(results);
-   // console.log(typeof(results[0]));
-   if(results[0]){
-    return res.json(results);
-    }
-    else{
-      return res.json({message:"board err"});
-    }
-
+   
+   return res.json({message:"query delete"});
+});//insert query
 //특이 사항 변수 쿼리가 아닐 경우 에러 발생
-});//select query
 });//router.post end
 
 module.exports = router;
