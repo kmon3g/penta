@@ -24,6 +24,18 @@ var connection = mysql.createConnection({
 //     console.log( 'mysql connect completed' );
 // });
 //test
+router.get('/login', function(req,res,next){ //all --> post
+
+    // console.log(req.query.name);
+    if(req.query.name == 'admin'){
+      var data = {success: "success"};
+      res.json(data);
+    }
+    else{
+      var data = {fail: "fail"};
+      res.json(data);
+    } 
+}); 
 router.post('/', function(req,res,next){ //all --> post
   data = req.body;
   var name='';
@@ -34,8 +46,8 @@ router.post('/', function(req,res,next){ //all --> post
     if (err) {
      console.log(err);
    }
-   console.log(results[0]);
-   console.log(typeof(results[0]));
+   // console.log(results[0]);
+   // console.log(typeof(results[0]));
    if(!results[0]){
     var query=connection.query('insert into project values((select max(project_id)+1 from project a),?)',data.name, function (err, results) {
       if (err) {
@@ -102,7 +114,7 @@ function insert_into_query(data,res) {
 
 
 // login
-router.post('/login',
+router.get('/login',
   function(req,res,next){
     var isValid = true;
     var validationError = {
@@ -110,15 +122,10 @@ router.post('/login',
       errors:{}
     };
 
-    if(!req.body.username){
+    if(!req.query.name){
       isValid = false;
       validationError.errors.username = {message:'Username is required!'};
     }
-    if(!req.body.password){
-      isValid = false;
-      validationError.errors.password = {message:'Password is required!'};
-    }
-
     if(!isValid) return res.json(util.successFalse(validationError));
     else next();
   },
