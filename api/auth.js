@@ -24,6 +24,8 @@ var connection = mysql.createConnection({
 //     console.log( 'mysql connect completed' );
 // });
 //test
+
+/*
 router.get('/login', function(req,res,next){ //all --> post
 
     // console.log(req.query.name);
@@ -36,6 +38,7 @@ router.get('/login', function(req,res,next){ //all --> post
       res.json(data);
     } 
 }); 
+*/
 router.post('/', function(req,res,next){ //all --> post
   data = req.body;
   var name='';
@@ -130,20 +133,21 @@ router.get('/login',
     else next();
   },
   function(req,res,next){
-    User.findOne({username:req.body.username})
-    .select({password:1,username:1,name:1,email:1})
-    .exec(function(err,user){
+    connection.query('SELECT project_id, project_name FROM project WHERE project_name=?',req.query.name, function(err, results){
       if(err) return res.json(util.successFalse(err));
-      else if(!user||!user.authenticate(req.body.password))
-         return res.json(util.successFalse(null,'Username or Password is invalid'));
-      else {
+      else if(!results[0]||(results[0].project_name!==req.query.name))
+        return res.json(results);
+        // return res.json(util.successFalse(null,'Username or Password is invalid'));
+      else{
         var payload = {
-          _id : user._id,
-          username: user.username
+          id : results[0].id,
+          name: results[0].name
         };
-        var secretOrPrivateKey = process.env.JWT_SECRET;
+        var secretOrPrivateKey = 'setcretKEYkkkk';//주석처리 변경필요. process.env.JWT_SECRET;
         var options = {expiresIn: 60*60*24};
         jwt.sign(payload, secretOrPrivateKey, options, function(err, token){
+          // console.log('a');
+          console.log(secretOrPrivateKey);
           if(err) return res.json(util.successFalse(err));
           res.json(util.successTrue(token));
         });
