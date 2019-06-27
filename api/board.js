@@ -17,10 +17,10 @@ var connection = mysql.createConnection({
   database : db_config.database
 });
 
-router.post('/', function(req,res,next){ //all --> post
+router.get('/', function(req,res,next){ //all --> post
   connection.escape();
-  data = req.body;
-  var query=connection.query('select * from vuln where project_id=?',data.project_id, function(err, results){
+  data = req.query.id;
+  var query=connection.query('select * from vuln where project_id=?', data, function(err, results){
     if (err) {
      console.log(err);
    }
