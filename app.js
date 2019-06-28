@@ -35,6 +35,7 @@ app.use('/api/auth', require('./api/auth'));   //2
 app.use('/api/board', require('./api/board'));   //2
 app.use('/api/add', require('./api/add'));   //2
 app.use('/api/delete', require('./api/delete'));   //2
+app.use('/api/update', require('./api/update'));   //2
 
 var router = express.Router();
 
