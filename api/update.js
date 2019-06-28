@@ -21,7 +21,7 @@ router.post('/', function(req,res,next){ //all --> post
   data = req.body;
   connection.escape();
   //date ex) 20190615202000 , 2019-06-15 20:20:00
-  var query=connection.query('update vuln set ',data.vuln_id,function(err, results){
+  var query=connection.query('update vuln set vuln_type=?,vuln_url=?,vuln_comment=?,vuln_poc=?,vuln_informer=?,vuln_date=? where vuln_id=?',[data.vuln_type,data.vuln_url,data.vuln_comment,data.vuln_poc,data.vuln_informer,data.vuln_date,data.vuln_id],function(err, results){
     if (err) {
      console.log(err);
      console.log('query error');
@@ -32,5 +32,6 @@ router.post('/', function(req,res,next){ //all --> post
 });//insert query
 //특이 사항 변수 쿼리가 아닐 경우 에러 발생
 });//router.post end
+
 
 module.exports = router;

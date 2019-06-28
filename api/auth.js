@@ -1,5 +1,4 @@
 // api/auth.js
-
 var express  = require('express');
 var router   = express.Router();
 var User     = require('../models/User');
@@ -111,8 +110,8 @@ router.get('/login',
         // return res.json(util.successFalse(null,'Username or Password is invalid'));
       else{
         var payload = {
-          id : results[0].id,
-          name: results[0].name
+          id : results[0].project_id,
+          name: results[0].project_name
         };
         var secretOrPrivateKey = 'setcretKEYkkkk';//주석처리 변경필요. process.env.JWT_SECRET;
         var options = {expiresIn: 60*60*24};
