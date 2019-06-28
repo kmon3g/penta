@@ -17,11 +17,12 @@ var connection = mysql.createConnection({
   database : db_config.database
 });
 
-router.post('/', function(req,res,next){ //all --> post
+router.post('/', util.isLoggedin,function(req,res,next){ //all --> post
+  // data = req.body;
+  var proj_id=req.decoded.id; //project_id;
   connection.escape();
-  data = req.body;
-  //name 값을 받으면 해당 네임에 맞는 vuln 리스트 응답
-  var query=connection.query('select * from vuln vul, project proj where vul.project_id=proj.project_id and proj.project_name=?',data.name, function(err, results){
+  //id 던져주면 vuln list 응답
+  var query=connection.query('select vuln_type,vuln_url,vuln_comment,vuln_poc,vuln_informer,vuln_date from vuln vul, project proj where vul.project_id=proj.project_id and proj.project_id=?',proj_id, function(err, results){
     if (err) {
      console.log(err);
    }
