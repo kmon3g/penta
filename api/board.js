@@ -44,19 +44,24 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
                     <th scope="col">날짜</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>`;
+            <tbody>`;
 
+  var number=1;
   var html_2='';
-
+  //number
   results.forEach(function(element){
+  html_2+='<tr>';
+    html_2+='<td>'+number+'</td>';
     html_2+='<td>'+element.vuln_type+'</td>';
-    html_2+='<td>'+element.vuln_type+'</td>';
-    html_2+='<td>'+element.vuln_type+'</td>';
-    html_2+='<td>'+element.vuln_type+'</td>';
-    html_2+='<td>'+element.vuln_type+'</td>';
-    html_2+='<td>'+element.vuln_type+'</td>';
+    html_2+='<td>'+element.vuln_informer+'</td>';
+    html_2+='<td>'+element.vuln_url+'</td>';
+    html_2+='<td>'+element.vuln_poc+'</td>';
+    html_2+='<td>'+element.vuln_date+'</td>';
+  html_2+='</tr>';
+    number+=1;
   })
+  html_2+='</tbody></table>';
+   
   /*`
                     <td>1</td>
                     <td>1</td>
@@ -91,7 +96,7 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
             </tbody>
         </table>
    `;*/
-    return res.json({message:"success"});
+    return res.json({success:true,data:html_1+html_2});
     }
     else{
       return res.json({message:"board err"});
