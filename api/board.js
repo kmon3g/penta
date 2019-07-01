@@ -32,19 +32,6 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
 
 
    if(results[0]){
-       var html_1 = `
-    <table id="hor-minimalist-a" summary="Employee Pay Sheet">
-            <thead>
-                <tr>
-                    <th scope="col">순번</th>
-                    <th scope="col">취약점유형</th>
-                    <th scope="col">제보자</th>
-                    <th scope="col">URL</th>
-                    <th scope="col">세부정보</th>
-                    <th scope="col">날짜</th>
-                </tr>
-            </thead>
-            <tbody>`;
 
   var number=1;
   var html_2='';
@@ -60,7 +47,22 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
   html_2+='</tr>';
     number+=1;
   })
-  html_2+='</tbody></table>';
+       var html_1 = `
+    <table id="hor-minimalist-a" summary="Employee Pay Sheet">
+            <thead>
+                <tr>
+                    <th scope="col">순번</th>
+                    <th scope="col">취약점유형</th>
+                    <th scope="col">제보자</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">세부정보</th>
+                    <th scope="col">날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+            ${html_2}
+            </tbody>
+            </table>`;
    
   /*`
                     <td>1</td>
@@ -96,7 +98,7 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
             </tbody>
         </table>
    `;*/
-    return res.json({success:true,data:html_1+html_2});
+    return res.json({success:true,data:html_1});
     }
     else{
       return res.json({message:"board err"});
