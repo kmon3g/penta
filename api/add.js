@@ -6,7 +6,7 @@ var User     = require('../models/User');
 var util     = require('../util');
 var jwt      = require('jsonwebtoken');
 
-//DB
+// DB
 var mysql = require('mysql');
 var db_config  = require('../config/conf.json');
 var connection = mysql.createConnection({
@@ -21,6 +21,7 @@ router.post('/', util.isLoggedin, function(req,res,next){ //all --> post
   data = req.body;
   // console.log("decoded: " + JSON.stringify(req.decoded));// print token
   var proj_id=req.decoded.id; //project_id;
+
   // console.log('name is :'+data.vuln_id);
   // console.log('name is :'+data.vuln_type);
   // console.log('name is :'+data.project_id);
@@ -30,7 +31,7 @@ router.post('/', util.isLoggedin, function(req,res,next){ //all --> post
   // console.log('name is :'+data.vuln_infomer);
   // console.log('name is :'+data.vuln_date);
 
-  connection.escape();
+  connection.escape(); //쿼터에 %5C[\] 백슬레시 달아줌
   //date ex) 20190615202000 , 2019-06-15 20:20:00
   var query=connection.query('insert into vuln values( (select max(vuln_id)+1 from vuln vul) ),?,?,?,?,?,?,?)',[data.vuln_type, proj_id, data.vuln_url, data.vuln_comment, data.vuln_poc, data.vuln_infomer, data.vuln_date],function(err, results){
     if (err) {
@@ -38,7 +39,7 @@ router.post('/', util.isLoggedin, function(req,res,next){ //all --> post
      console.log('query error');
      return res.json({message:"query error"});
    }
-   return res.json({message:"query insert"});
+   return res.json({message:"insert success"});
 });//insert query
 //특이 사항 변수 쿼리가 아닐 경우 에러 발생
 });//router.post end

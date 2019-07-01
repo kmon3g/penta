@@ -17,7 +17,8 @@ var connection = mysql.createConnection({
   database : db_config.database
 });
 
-router.post('/', util.isLoggedin,function(req,res,next){ //all --> post
+
+router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
   // data = req.body;
   var proj_id=req.decoded.id; //project_id;
   connection.escape();
@@ -28,8 +29,69 @@ router.post('/', util.isLoggedin,function(req,res,next){ //all --> post
    }
    // console.log(results);
    // console.log(typeof(results[0]));
+
+
    if(results[0]){
-    return res.json(results);
+       var html_1 = `
+    <table id="hor-minimalist-a" summary="Employee Pay Sheet">
+            <thead>
+                <tr>
+                    <th scope="col">순번</th>
+                    <th scope="col">취약점유형</th>
+                    <th scope="col">제보자</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">세부정보</th>
+                    <th scope="col">날짜</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>`;
+
+  var html_2='';
+
+  results.forEach(function(element){
+    html_2+='<td>'+element.vuln_type+'</td>';
+    html_2+='<td>'+element.vuln_type+'</td>';
+    html_2+='<td>'+element.vuln_type+'</td>';
+    html_2+='<td>'+element.vuln_type+'</td>';
+    html_2+='<td>'+element.vuln_type+'</td>';
+    html_2+='<td>'+element.vuln_type+'</td>';
+  })
+  /*`
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>
+                        <a id="modal" data-toggle="modal" href="#myModal">
+                            <i class="fa fa-plus iconfont" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>SQLI</td>
+                    <td>XXE</td>
+                    <td>FILE UPLOAD</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>$200</td>
+                    <td>$35</td>
+                    <td>Andy</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>$175</td>
+                    <td>$25</td>
+                    <td>Annie</td>
+                </tr>
+            </tbody>
+        </table>
+   `;*/
+    return res.json({message:"success"});
     }
     else{
       return res.json({message:"board err"});
