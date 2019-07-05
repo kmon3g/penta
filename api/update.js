@@ -25,22 +25,22 @@ router.post('/',util.isLoggedin, function(req,res,next){ //all --> post
 
   var query=connection.query('select project_id from vuln where vuln_id=? and project_id=?', [data.vuln_id, proj_id], function(err, results){
     if (err) {
-     console.log(err);
-     return res.json({message:"query error"});
+      console.log(err);
+      return res.json({success:false, message:"query error"});
    }
    // console.log(results[0]);
    // console.log(typeof(results[0]));
    if(results[0]){
-    var query=connection.query('update vuln set vuln_type=?,vuln_url=?,vuln_comment=?,vuln_poc=?,vuln_informer=?,vuln_date=? where vuln_id=? and project_id=?',[data.vuln_type,data.vuln_url,data.vuln_comment,data.vuln_poc,data.vuln_informer,data.vuln_date,data.vuln_id,proj_id],function(err, results){
+    var query=connection.query('update vuln set vuln_type=?,vuln_url=?,vuln_comment=? where vuln_id=? and project_id=?',[data.vuln_type,data.vuln_url,data.vuln_comment,data.vuln_id,proj_id],function(err, results){
       if (err) {
        console.log(err);
-       return res.json({message:"update query error"});
+       return res.json({success:false, message:"update query error"});
      }
-     return res.json({message:"update success"});
+     return res.json({success:true, message:"수정 완료되었습니다."});
    }); 
   }
   else{//delete error
-    return res.json({message:"update fail"});
+    return res.json({success:false, message:"수정에 실패하였습니다."});
   }
   });// select query
 
