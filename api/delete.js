@@ -21,10 +21,10 @@ router.post('/',util.isLoggedin, function(req,res,next){ //all --> post
   data = req.body;
   var proj_id=req.decoded.id; //project_id;
   connection.escape();
-    var query=connection.query('select project_id from vuln where vuln_id=? and project_id=?', [data.vuln_id, proj_id], function(err, results){
+    var query=connection.query('select * from vuln where vuln_id=? and project_id=?', [data.vuln_id, proj_id], function(err, results){
     if (err) {
      console.log(err);
-     return res.json({message:"query error"});
+     return res.json({message:"select error"});
    }
    // console.log(results[0]);
    // console.log(typeof(results[0]));
@@ -32,7 +32,7 @@ router.post('/',util.isLoggedin, function(req,res,next){ //all --> post
     var query=connection.query('delete from vuln where vuln_id=? and project_id=?',[data.vuln_id,proj_id], function (err, results) {
       if (err) {
        console.log(err);
-       res.json({message:"query error"});
+       return res.json({message:"delete error"});
      }
      return res.json({message:"delete success"});
    });//delete query 
