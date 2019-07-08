@@ -61,7 +61,16 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
             <tbody>
             ${tmp}
             </tbody>
-            </table>`;
+            </table>
+    <div class="container div-add">
+      <div class="row">
+        <div class="col-10">
+        </div>
+        <div class="col-2">
+            <div class="btn original-btn add">추가</div>
+        </div>
+      </div>
+    </div>`;
    if(results[0]){
   //number
    
