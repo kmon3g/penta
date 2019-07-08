@@ -33,7 +33,7 @@ router.post('/', util.isLoggedin, function(req,res,next){ //all --> post
 
   connection.escape(); //쿼터에 %5C[\] 백슬레시 달아줌
   //date ex) 20190615202000 , 2019-06-15 20:20:00
-  var query=connection.query('insert into vuln values( (select max(vuln_id)+1 from vuln vul) ),?,?,?,?,?,?,?)',[data.vuln_type, proj_id, data.vuln_url, data.vuln_comment, data.vuln_poc, data.vuln_infomer, data.vuln_date],function(err, results){
+  var query=connection.query('insert into vuln values( (select max(vuln_id)+1 from vuln vul) ,?,?,?,?,?,?,?)',[data.vuln_type, proj_id, data.vuln_url, data.vuln_comment, data.vuln_poc, data.vuln_informer, data.vuln_date],function(err, results){  
     if (err) {
      console.log(err);
      console.log('query error');
