@@ -31,11 +31,8 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
    // console.log(typeof(results[0]));
 
 
-   if(results[0]){
-
   var number=1;
   var tmp='';
-  //number
   results.forEach(function(element){
     var modalbtn = `<a id="more${number}" class="openmodal" data-toggle="modal" href="#"><i class="fa fa-plus iconfont" aria-hidden="true"></i></a>`
     tmp+='<tr>';
@@ -65,11 +62,13 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
             ${tmp}
             </tbody>
             </table>`;
+   if(results[0]){
+  //number
    
     return res.json({success:true, html:html, data:results});
     }
     else{
-      return res.json({message:"board err"});
+      return res.json({success:true, html:html, data:results});
     }
 
 //특이 사항 변수 쿼리가 아닐 경우 에러 발생
