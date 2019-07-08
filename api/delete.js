@@ -32,13 +32,13 @@ router.post('/',util.isLoggedin, function(req,res,next){ //all --> post
     var query=connection.query('delete from vuln where vuln_id=? and project_id=?',[data.vuln_id,proj_id], function (err, results) {
       if (err) {
        console.log(err);
-       return res.json({message:"delete error"});
+       return res.json({success:false,message:"삭제를 실패하였습니다."});
      }
-     return res.json({message:"delete success"});
+     return res.json({success:true,message:"삭제를 성공하였습니다."});
    });//delete query 
   }
   else{//delete error
-    return res.json({message:"delete fail"});
+    return res.json({success:false,message:"해당 항목이 없습니다."});
     }
   });// select query
   //특이 사항 변수 쿼리가 아닐 경우 에러 발생
