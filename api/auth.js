@@ -160,33 +160,7 @@ router.get('/login',
 // me
 router.get('/me', util.isLoggedin,
   function(req,res,next) {
-    User.findById(req.decoded._id)
-    .exec(function(err,user){
-      if(err||!user) return res.json(util.successFalse(err));
-      res.json(util.successTrue(user));
-    });
-  }
-);
-
-// refresh
-router.get('/refresh', util.isLoggedin,
-  function(req,res,next) {
-    User.findById(req.decoded._id)
-    .exec(function(err,user){
-      if(err||!user) return res.json(util.successFalse(err));
-      else {
-        var payload = {
-          _id : user._id,
-          username: user.username
-        };
-        var secretOrPrivateKey = process.env.JWT_SECRET;
-        var options = {expiresIn: 60*60*24};
-        jwt.sign(payload, secretOrPrivateKey, options, function(err, token){
-          if(err) return res.json(util.successFalse(err));
-          res.json(util.successTrue(token));
-        });
-      }
-    });
+      res.json(util.successTrue(req.decoded));
   }
 );
 
