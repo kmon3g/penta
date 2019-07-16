@@ -44,7 +44,7 @@ router.post('/', util.isLoggedin, function(req,res,next){ //all --> post
   //   console.log(data[key]);
   // }
   //date ex) 20190615202000 , 2019-06-15 20:20:00
-  var query=connection.query('insert into vuln values((select ifnull(max(vuln_id)+1,0) from vuln v),?,?,?,?,\'\',?,now())',[data.vuln_type, proj_id, data.vuln_url, data.vuln_comment, data.vuln_informer],function(err, results){  
+  var query=connection.query('insert into vuln values((select ifnull(max(vuln_id)+1,0) from vuln v),?,?,?,?,?,now())',[data.vuln_type, proj_id, data.vuln_url, data.vuln_comment, data.vuln_informer],function(err, results){  
     if (err) {
      console.log(err);
      console.log('query error');

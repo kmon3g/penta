@@ -1,7 +1,7 @@
 {
   "host": "localhost",
-  "user": "unknown",
-  "password": "toor",
+  "user": "master",
+  "password": "akstp1!",
   "port": "3306",
   "database": "penta"
 }

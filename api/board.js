@@ -24,7 +24,7 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
   var proj_id=req.decoded.id; //project_id;
   connection.escape();
   //id 던져주면 vuln list 응답
-  var query=connection.query('select vuln_id,vuln_type,vuln_url,vuln_comment,vuln_poc,vuln_informer,date_format(vuln_date, \'%Y-%m-%d\') as vuln_date from vuln vul, project proj where vul.project_id=proj.project_id and proj.project_id=?',proj_id, function(err, results){
+  var query=connection.query('select vuln_id,vuln_type,vuln_url,vuln_comment,vuln_informer,date_format(vuln_date, \'%Y-%m-%d\') as vuln_date from vuln vul, project proj where vul.project_id=proj.project_id and proj.project_id=?',proj_id, function(err, results){
     if (err) {
      console.log(err);
    }
