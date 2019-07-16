@@ -112,7 +112,6 @@ router.get('/login',
     connection.query('SELECT project_id, project_name FROM project WHERE project_name=?',req.query.name, function(err, results){
       if(err) return res.json(util.successFalse(err));
       else if(!results[0]||(results[0].project_name!==req.query.name))
-        // return res.json(results);
         return res.json(util.successFalse(null,'invalid'));
       else{
         console.log(results[0]);
@@ -121,11 +120,9 @@ router.get('/login',
           name: results[0].project_name
         };
         console.log(JSON.stringify(payload));
-        var secretOrPrivateKey = 'setcretKEYkkkk';//주석처리 변경필요. process.env.JWT_SECRET;
+        var secretOrPrivateKey = process.env.JWT_SECRET;
         var options = {expiresIn: 60*60*24};
         jwt.sign(payload, secretOrPrivateKey, options, function(err, token){
-          // console.log('a');
-          console.log(secretOrPrivateKey);
           if(err) return res.json(util.successFalse(err));
           res.json(util.successTrue(token));
         });
