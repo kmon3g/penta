@@ -5,6 +5,7 @@ var router   = express.Router();
 var User     = require('../models/User');
 var util     = require('../util');
 var jwt      = require('jsonwebtoken');
+var Entities=require('html-entities').AllHtmlEntities;
 
 //DB
 var mysql = require('mysql');
@@ -33,15 +34,16 @@ router.get('/', util.isLoggedin,function(req,res,next){ //all --> post
 
   var number=1;
   var tmp='';
+  var entiti=new Entities();
   results.forEach(function(element){
     var modalbtn = `<a id="more${number}" class="openmodal" data-toggle="modal" href="#"><i class="fa fa-plus iconfont" aria-hidden="true"></i></a>`
     tmp+='<tr>';
     tmp+='<td>'+number+'</td>';
-    tmp+='<td>'+element.vuln_type+'</td>';
-    tmp+='<td>'+element.vuln_informer+'</td>';
-    tmp+='<td>'+element.vuln_url+'</td>';
+    tmp+='<td>'+entiti.encode(element.vuln_type)+'</td>';
+    tmp+='<td>'+entiti.encode(element.vuln_informer)+'</td>';
+    tmp+='<td>'+entiti.encode(element.vuln_url)+'</td>';
     // tmp+='<td>'+element.vuln_poc+'</td>';
-    tmp+='<td>'+element.vuln_date+'</td>';
+    tmp+='<td>'+entiti.encode(element.vuln_date)+'</td>';
     tmp+='<td>'+modalbtn+'</td>';
     tmp+='</tr>';
     number+=1;

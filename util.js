@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-
+var Entities=require('html-entities').AllHtmlEntities;
 var util = {};
 
 util.successTrue = function(data){ //1 
@@ -51,5 +51,20 @@ util.isLoggedin = function(req,res,next){ //4
     });
   }
 };
+
+// util.xssFilter = function(req,res,next){
+//   var method_post=req.body;
+//   var method_get=req.query;
+//   var entiti=new Entities();
+//   for(var key in method_post){
+//     method_post[key]=entiti.encode(method_post[key]);
+//     // console.log(method_post[key]);
+//   }
+//   for(var key in method_get){
+//     method_get[key]=entiti.encode(method_get[key]);
+//     console.log(method_post[key]);
+//   }
+//   next();
+// }
 
 module.exports = util;

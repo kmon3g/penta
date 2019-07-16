@@ -17,12 +17,18 @@ var connection = mysql.createConnection({
   database : db_config.database
 });
 
-router.post('/',util.isLoggedin, function(req,res,next){ //all --> post
+router.post('/',util.isLoggedin,function(req,res,next){ //all --> post
   data = req.body;
   var proj_id=req.decoded.id;
-  connection.escape();
+  for(var key in data){
+    if(!data[key])
+      return res.json(util.successFalse(null,'data is required!'));
+  }
+  
   //date ex) 20190615202000 , 2019-06-15 20:20:00
 
+
+  connection.escape();
   var query=connection.query('select project_id from vuln where vuln_id=? and project_id=?', [data.vuln_id, proj_id], function(err, results){
     if (err) {
       console.log(err);

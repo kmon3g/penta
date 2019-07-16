@@ -5,7 +5,7 @@ var router   = express.Router();
 var User     = require('../models/User');
 var util     = require('../util');
 var jwt      = require('jsonwebtoken');
-
+var Entities=require('html-entities').AllHtmlEntities;
 // DB
 var mysql = require('mysql');
 var db_config  = require('../config/conf.json');
@@ -19,6 +19,11 @@ var connection = mysql.createConnection({
 
 router.post('/', util.isLoggedin, function(req,res,next){ //all --> post
   data = req.body;
+  for(var key in data){
+    if(!data[key])
+      return res.json(util.successFalse(null,'data is required!'));
+  }
+
   // console.log("decoded: " + JSON.stringify(req.decoded));// print token
   var proj_id=req.decoded.id; //project_id;
 
@@ -32,6 +37,12 @@ router.post('/', util.isLoggedin, function(req,res,next){ //all --> post
   // console.log('name is :'+data.vuln_date);
 
   connection.escape(); //쿼터에 %5C[\] 백슬레시 달아줌
+
+  // var entiti=new Entities();
+  // for(var key in data){
+  //   data[key]=entiti.encode(data[key]);
+  //   console.log(data[key]);
+  // }
   //date ex) 20190615202000 , 2019-06-15 20:20:00
   var query=connection.query('insert into vuln values((select ifnull(max(vuln_id)+1,0) from vuln v),?,?,?,?,\'\',?,now())',[data.vuln_type, proj_id, data.vuln_url, data.vuln_comment, data.vuln_informer],function(err, results){  
     if (err) {

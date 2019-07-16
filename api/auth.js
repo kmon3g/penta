@@ -51,7 +51,7 @@ router.post('/', function(req,res,next){ //all --> post
    // console.log(results[0]);
    // console.log(typeof(results[0]));
    if(!results[0]){
-    var query=connection.query('insert into project values((select max(project_id)+1 from project a),?)',data.name, function (err, results) {
+    var query=connection.query('insert into project values((select ifnull(max(project_id)+1,0) from project p),?)',data.name, function (err, results) {
       if (err) {
        console.log(err);
      }
@@ -90,29 +90,6 @@ router.post('/', function(req,res,next){ //all --> post
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
-
-function insert_into_query(data,res) {
-  var name='';
-  console.log(data);
-  connection.escape();
-  var query=connection.query('select project_name from project where project_name=?', data, function(err, results){
-    if (err) {
-      console.log(err);
-    }
-    name=results[0].project_name;
-    console.log('result = '+results[0].project_name);
-    console.log('name = '+name);
-  });
-  console.log('name1 ='+name);
-  console.log('data ='+data);
-  if(name==data){
-    res.send('name2 ='+name);
-  }
-  else{
-    console.log('name3');
-    res.json({result:results});
-  }
-}
 
 
 // login

@@ -12,6 +12,7 @@
     "debug": "~2.6.9",
     "express": "^4.16.4",
     "express-mysql": "0.0.1",
+    "html-entities": "^1.2.1",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.4.0",
