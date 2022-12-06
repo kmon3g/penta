@@ -7,10 +7,10 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "express-mysql": "0.0.1",
     "html-entities": "^1.2.1",
     "http-errors": "~1.6.2",
