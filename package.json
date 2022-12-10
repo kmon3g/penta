@@ -10,7 +10,7 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-mysql": "0.0.1",
     "html-entities": "^1.2.1",
     "http-errors": "~1.6.2",
